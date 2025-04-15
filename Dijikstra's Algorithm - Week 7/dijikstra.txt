@@ -1,0 +1,42 @@
+#include<stdio.h>
+void main(){
+    int i,j,k,d[10],s[10],c[10][10],n,min,u,v;
+    printf("Enter the total no.of vertices:\n");
+    scanf("%d", &n);
+    printf("Enter the cost adjascency matrix: (Enter 999 for no edge) \n");
+    for(i=0; i<n; i++){
+        for(j=0; j<n; j++) scanf("%d", & c[i][j]);
+    }
+    printf("Enter the source vertex:\n");
+    scanf("%d", &v);
+
+    for(i=0; i<n; i++){
+        d[i] = c[v][i];
+        s[i] = 0;
+    }
+    s[v] = 1;
+    d[v] = 0;
+
+    for(k=1; k<=n-1; k++){
+        min=999;
+
+        for(i=0; i<n; i++){
+            if(s[i]==0 && d[i]<min){
+                min=d[i];
+                u=i;
+            }
+        }
+
+        s[u] = 1;
+
+        for(i=0; i<n; i++){
+            if(s[i]==0 && d[i]>d[u]+c[u][i]) d[i] = d[u] + c[u][i];
+        }
+    }
+
+    printf("Shortest path from %d \n\n\n",v);
+    for(i=0; i<n; i++){
+        printf("%d to %d --> %d \n",v,i,d[i]);
+    }
+
+}
