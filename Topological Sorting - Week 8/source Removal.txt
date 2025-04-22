@@ -1,0 +1,63 @@
+#include <stdio.h>
+int a[10][10], ind[10], n, res[10];
+
+void srcremoval()
+{
+    int i,j, count=0;
+
+    while(count<n){
+        int src = -1;
+        for(i=0; i<n; i++){
+            if(ind[i]==0) {
+                src = i;
+                ind[i]--;
+                break;
+            }
+        }
+
+        if(src==-1){
+            printf("Cycle detected\n");
+            return;
+        }
+
+        for(i=0; i<n; i++){
+            if(a[src][i]==1){
+                a[src][i]=0;
+                ind[i]--;
+            }
+        }
+        res[count++] = src;
+}
+
+}
+
+void main()
+{
+    int i, j;
+    printf("Enter the no.of vertices:\n ");
+    scanf("%d", &n);
+
+    printf("Enter the graph:\n");
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    for (i = 0; i < n; i++)
+    {
+        int sum=0;
+        for (j = 0; j < n; j++)
+        {
+            if(a[j][i]==1) sum+=1;
+        }
+        ind[i] = sum;
+    }
+
+    srcremoval();
+    printf("Topological ordering is:\n");
+    for(i=0; i<n; i++) printf("%d ", res[i]);
+
+}

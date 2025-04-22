@@ -1,0 +1,40 @@
+#include <stdio.h>
+int a[10][10], n, res[10], vis[10], top=0;
+
+void dfs(int vrtx){
+    vis[vrtx]=1;
+
+    for(int i=0; i<n; i++){
+        if(vis[i]==0 && a[vrtx][i]==1){
+            dfs(i);
+        }
+    }
+    res[top++] = vrtx;
+}
+
+void main()
+{
+    int i, j;
+    printf("Enter the no.of vertices:\n ");
+    scanf("%d", &n);
+
+    printf("Enter the graph:\n");
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            scanf("%d", &a[i][j]);
+        }
+        vis[i] = 0;
+    }
+
+    for(int i=0; i<n; i++){
+        if(vis[i]==0) dfs(i);
+    }
+
+
+
+    printf("Topological ordering is:\n");
+    for(i=n-1; i>=0; i--) printf("%d ", res[i]);
+
+}
